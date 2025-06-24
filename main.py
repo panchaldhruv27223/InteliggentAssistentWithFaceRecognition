@@ -1,24 +1,36 @@
-# import Threading
+## import library and files 
 import threading
 import FaceDetection
 import voice
 import time 
 import sys
 import collections
-# import FaceShow
 from tkinter import *
+import tkinter as tk
 from PIL import Image, ImageTk 
 import cv2
 import face_recognition
+import os
 
-   
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
+
+## initializeing the haarcascade for face detection
+current_path = os.getcwd()
+face_cascade = cv2.CascadeClassifier(os.path.join(current_path,"models","haarcascade_frontalface_alt.xml"))
+
+## taking the encoded face data 
 (knowFaceName,knowFaceEncoder) = FaceDetection.EncodeFaceData()
+
+## variable to track the face gone.
 counter = 0
 
 
 def FaceRecognition(label): 
     
+    """
+    this function is created to recognition the face.
+    in this function we also get and set the face name.
+    """
+        
     global knowFaceEncoder, knowFaceName, face_cascade, counter
 
     
@@ -27,20 +39,17 @@ def FaceRecognition(label):
     ## take input from laptop camera
     cap = cv2.VideoCapture(0)
 
-    ## Create a window 
-    # window = "Video Detection"
-    # cv2.namedWindow(window)
 
 
     ## created loop for continuous recognition 
     while 1 :
-        # print(cap.isOpened())
-
+        
+        ## check frame exist or not and do some preprocessing
+        
         hasFrame, frame = cap.read()
         frame = cv2.flip(frame,1)
         frame2 = frame.copy()
         
-        ## check we have frame or not
         if hasFrame :
             
             ## Convert frame to grayscale
@@ -48,16 +57,13 @@ def FaceRecognition(label):
             
             ## detect faces from frame
             faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=11)
-            
-            # cv2.imshow(window,frame)
-            # cv2.imshow("newImage",frame2)
-            
+
+
             ## check we have detect the face 
             if len(faces) >= 1:
                 
                 ## taking the first face form faces
                 faces = faces[0]
-                # print(faces)
                 
                 # taking the rectangle points 
                 x,y,w,h = faces
@@ -71,119 +77,109 @@ def FaceRecognition(label):
                 try :
                     ## converting the BGR img to RGB Image
                     img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
-                except:
+                except Exception:
                     pass
                 
-                # Encode the face data 
+                # Encode the image of face
                 encodeImg = face_recognition.face_encodings(img)
-                # print("Encoded image",encodeImg)
-                # cv2.imshow("Cropped face", img)
-                
                 
                 try :
                     encodeImg = encodeImg[0]
-                    # print("this is encoded image",encodeImg)
-                except Exception as e:
+                
+                except Exception:
                     pass
                 
                 matchs = []
                 
                 ## Compare encoded image to known encoded image 
                 for knowImg in knowFaceEncoder:
-                    # print(knowImg)
                     # print("Start to compares faces")
                     try :
                         match = face_recognition.compare_faces([knowImg],encodeImg,tolerance=0.4)
                         matchs.extend(match)
-                        
-                    except Exception as e :
-                        # print("Error 1")
+                    
+                    except Exception :
                         pass
-                        
-                # print("the finded matchis are ",matchs)
-                
+
                 ## Check if we get match or not.
-                
                 try :
-                    # print("collecting the true match")
+                    # collecting the true match
                     index = matchs.index(True)
-                    # print("the index of the image ")
+                    # the index of the image and the the known name of the person
                     nameOfPerson = knowFaceName[index]
                     
-                    # if getName() == nameOfPerson :
-                    #     pass
-                    # else :
+                    # set the detected face name 
                     FaceDetection.ObjectName.setName =  nameOfPerson
                     
-                    # print(FaceDetection.ObjectName.getName, " with out exception")
                     
-                except Exception as e:
-                    # if getName() == "Human":
-                    #     pass
-                    # else : 
+                except Exception :
+                    ## we dont recognize the person then we just set name as human
                     nameOfPerson = "Human"
                     FaceDetection.ObjectName.setName = nameOfPerson
-                    
-                    # print(FaceDetection.ObjectName.getName, " with exception " )
                     
                 
                 ## put text on the frame
                 cv2.putText(frame,nameOfPerson,(x-10, y-10),fontFace=cv2.FONT_HERSHEY_COMPLEX,fontScale=1,color=(0,255,0),thickness=2)
-                # print("face recognize as ",name)
             
             else :
-                
+                ## if we dont get any faces then we just set the name as person gone                
                 counter = counter + 1
-                
-                if counter > 10 :
+                if counter > 3 :
                     FaceDetection.ObjectName.setName ="PersonGone"
-                    # print(getName(), " with exception " )
                     counter = counter + 1
                 
   
         opencv_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
 
-            # Capture the latest frame and transform to image 
+        # Capture the latest frame and transform to image 
         captured_image = Image.fromarray(opencv_image) 
-
-            # Convert captured image to photoimage 
+        captured_image = captured_image.resize((300,150))
+        # Convert captured image to photoimage 
         photo_image = ImageTk.PhotoImage(image=captured_image) 
-
-            # Displaying photoimage in the label 
-        # face_frame.photo_image = photo_image 
-
-            # Configure image in the label 
-        label.configure(image=photo_image) 
-        
+        # Configure image in the label 
+        label.place(relx=0.65,rely=0.152,anchor='n')
+        label.config(image=photo_image) 
         label.image = photo_image
 
-        # # Repeat the same process after every 10 seconds 
-            
-        
-    # cap.release()    
-    # cv2.destroyAllWindows()
 
-# def show():
-    # FaceRecognition()
-    
-# show()
+## this flag is set to see the face recognition process start or not 
 flag = False
 
 def nameAndCommnunication(label):
+    
+    """
+    this function is created for communication it take the konwn persone name and start communication
+    the person.
+    
+    """
+    
+    ## taking the global parameters in use 
     global knowFaceName, flag
     
     print("Know face is : ",knowFaceName)
+    
+    ## this counter is used for reduce the false detection by puting the condition.
     counter = 0
+    
+    ## list of the faces detected
     faces = []
+    
+    ## loop for continuous match the face and communicate with the human
     while 1 :
         
+        ## here we use the flag and we wait unitl the face process start and flag set to True
         if flag: 
-            label.config(text = 'Waiting for you')
-
-            time.sleep(1)
-            faceName = FaceDetection.getName()
             
-            print("face name is ",faceName) 
+            ## set the text to the user in main screen
+            label.config(text = 'Waiting for you')
+            time.sleep(1)
+            
+            ## getting the detected face and for some threshold we lopping here and after the 
+            ## conformation the model start to communicate with the user  
+            
+
+            faceName = FaceDetection.getName()
+            # print("face name is ",faceName) 
             if faceName == "NoPerson" or faceName =="PersonGone":
                 continue
             else :
@@ -191,16 +187,18 @@ def nameAndCommnunication(label):
                 counter += 1
                        
             if (faceName in knowFaceName or faceName == "Human") and counter > 5 :
-                print(faces)
+                # print(faces)
                 faceName = collections.Counter(faces).most_common()[0][0]
                 message = "communication start with " +faceName
                 label.config(text = message)
-                voiceThread = threading.Thread(target=voice.voiceMain,args=(faceName,))
+                
+                ## created the thread and start it for communicate with the user
+                voiceThread = threading.Thread(target=voice.voiceMain,args=(faceName,label))
                 voiceThread.start()
                 voiceThread.join()
+                
                 message = "communication Ends with " +faceName
                 label.config(text = message)
-                
                 # voice2.voiceMain(faceName)
                 counter = 0 
                 faces = []
@@ -210,52 +208,126 @@ def nameAndCommnunication(label):
             
         else :
             break
+        
+        
+## 
+class Gif(tk.Label):
     
+    """
+    this class is created for the gui perpouse    
+    
+    """
+    
+    def __init__(self, master, path, delay=50):
+        
+        ## setting the path and other importante parameters
+        
+        self.path = path
+        self.frames = []
+        self.current_frame = 0
+        self.delay = delay
+        self.load_frames()
+        first_frame = self.frames[0]
+        self.image = first_frame
+        super().__init__(master, image=self.image)
+        self.pack()
+        self.animate()
+
+
+    def load_frames(self):
+        """
+        this function is used for loadding the frame.         
+        """
+        
+        gif = Image.open(self.path)
+        try:
+            while True:
+                gif.seek(len(self.frames))
+                rezie_frame=gif.copy().resize((1000,750))
+                rezie_frame=ImageTk.PhotoImage(rezie_frame)
+                self.frames.append(rezie_frame)
+        except EOFError:
+            pass
+
+    def animate(self):
+        self.config(image=self.frames[self.current_frame])
+        self.current_frame += 1
+        if self.current_frame >= len(self.frames):
+            self.current_frame = 0
+        self.after(self.delay, self.animate)   
         
 def main():
+    """
+   this is a main function which run face process and communication process
+   in this function we declare the gui.  
+    
+    """
+    ## the we use the flag variable which is declare above and when the face process start it set to 
+    ## True otherwise it set the False.
+    
     global flag
     
+    ## initialize the window 
     window = Tk()
+    
+    ## set the title 
     window.title("Intelligent Assistant With Face Recognition")
 
-
+    ## set the whole window size
     width= window.winfo_screenwidth()               
     height= window.winfo_screenheight()               
     window.geometry("%dx%d" % (width, height))
+   
 
-
+    # Path to your GIF files
+    gif_path = os.path.join(current_path,"images","giphy.gif")
+    animated_gif = Gif(window,gif_path)
+    animated_gif.place(relx=0.6, rely=0.55, anchor=tk.CENTER)
+    animated_gif.config(bg='black')
+    
+    face_frame = Label(window)
+    face_frame.pack()
+    
+    ## set the college image in the window
+    college_image = Image.open(os.path.join(current_path,"images","GITLOGO2.png"))
+    college_image = ImageTk.PhotoImage(college_image)
+    college_label=tk.Label(window,image=college_image)
+    college_label.pack(anchor='nw',pady=10,padx=10)    
+    
+    ## set the kody image logo in the frame
+    kody_image = Image.open(os.path.join(current_path,"images","kody.png"))
+    kody_image=kody_image.resize((150,120))
+    kody_image = ImageTk.PhotoImage(kody_image)
+    kody_label=tk.Label(window,image=kody_image)
+    kody_label.place(relx=0.64,rely=0.52,anchor='n')
+    
+    ## place communication label to show text in the screen 
     communication_label = Label(text="Communication")
-    communication_label.grid(row=0, column=1)
-
-    face_frame = Label(width=640, height=480)
-    face_frame.grid(row=0, column=0)
-    face_frame.grid_propagate(False)
-    face_frame.grid_rowconfigure(0, weight=1)  
-            
-    window.bind('<Escape>', lambda e: window.quit())
+    communication_label.place(relx=0.05,rely=0.6)
+    communication_label.config(font=20,background='black',fg='white',justify='center',wraplength=300)
     
-    # print(1)
-    
+    ## created the two thread for our main two process one is face process and other one is communication 
     faceProcess = threading.Thread(target=FaceRecognition,args=(face_frame,))
-
     faceCommunication = threading.Thread(target=nameAndCommnunication,args=(communication_label,))
 
+    ## start the face process and communication process
     faceProcess.start()
-    
     if not faceProcess.is_alive():
         flag = False
         sys.exit()
     else :
         flag = True
-
-
     faceCommunication.start()
     
-    window.mainloop()
-
-    faceProcess.join()
-    sys.exit()
     
+    window.config(bg='black')
+    try : 
+        window.mainloop()
+        faceProcess.join()
+    except Exception :
+        sys.exit()
+        
+            
 if __name__ =="__main__":
-    
+    ## function calling is done here
     main()

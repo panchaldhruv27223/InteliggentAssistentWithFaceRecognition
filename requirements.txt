@@ -8,6 +8,7 @@ nltk
 tensorflow==2.17.0
 keras
 numpy
+PyAudio
 openai-whisper
 whisper
 SpeechRecognition==3.10.1

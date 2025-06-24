@@ -19,10 +19,10 @@ import zipfile
 print(zipfile.is_zipfile("model.keras"))
 
 
-model = load_model('model.keras')
-intents = json.loads(open('data.json').read())
-words = pickle.load(open('words.pkl', 'rb'))
-classes = pickle.load(open('classes.pkl', 'rb'))
+model = load_model('model_data/model.keras')
+intents = json.loads(open('training_data/data.json').read())
+words = pickle.load(open('model_data/words.pkl', 'rb'))
+classes = pickle.load(open('model_data/classes.pkl', 'rb'))
 
 lemmatizer = WordNetLemmatizer()
 

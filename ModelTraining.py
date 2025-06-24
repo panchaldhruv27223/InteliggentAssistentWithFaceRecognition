@@ -7,7 +7,8 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation, Dropout
 from keras.optimizers import SGD
 import random
-
+import matplotlib.pyplot as plt
+nltk.download('punkt_tab')
 nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
@@ -28,7 +29,7 @@ documents = []
 ignore_words = ['?', '!']
 
 ## load data from file
-data_file = open('data.json').read()
+data_file = open("training_data/data.json").read()
 intents = json.loads(data_file)
 
 
@@ -53,9 +54,9 @@ words = sorted(list(set(words)))
 classes = sorted(list(set(classes)))
 
 ## save unique words 
-pickle.dump(words, open('words.pkl', 'wb'))
+pickle.dump(words, open('model_data/words.pkl', 'wb'))
 ## save all tags
-pickle.dump(classes, open('classes.pkl', 'wb'))
+pickle.dump(classes, open('model_data/classes.pkl', 'wb'))
 
 
 # create our training data
@@ -81,7 +82,7 @@ for doc in documents:
 
     training.append([bag, output_row])
     
-print(training)
+# print(training)
 
 train_x = []
 train_y = []
@@ -90,8 +91,8 @@ for i in training:
     train_x.append(i[0])
     train_y.append(i[1])
     
-print(len(train_x))
-print(len(train_y))
+# print(len(train_x))
+# print(len(train_y))
 
 # shuffle our features and turn into np.array
 # random.shuffle(training)
@@ -115,12 +116,41 @@ model.add(Dense(len(train_y[0]), activation='softmax'))
 
     
 # # Compile model. Stochastic gradient descent with Nesterov accelerated gradient gives good results for this model
-sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+sgd = SGD(learning_rate=0.001, momentum=0.99, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
 
 
 # # fitting and saving the mode
-hist = model.fit(np.array(train_x), np.array(train_y), epochs=150, batch_size=5, verbose=1)
+hist = model.fit(np.array(train_x), np.array(train_y), epochs=500, batch_size=10, verbose=1)
+
 model.save('model.keras')
-print("Done")
+
+# Plotting the training loss
+plt.figure(figsize=(12, 6))
+plt.plot(hist.history['loss'], label='Loss')
+plt.title('Model Loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+plt.savefig('model_loss_graph.png')  # Save the loss graph as a PNG file
+# plt.show()  # Display the graph
+
+# Plotting the training accuracy
+plt.figure(figsize=(12, 6))
+plt.plot(hist.history['accuracy'], label='Accuracy')
+plt.title('Model Accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.savefig('model_accuracy_graph.png')  # Save the accuracy graph as a PNG file
+# plt.show()  # Display the graph
+
+
+## trained a model with different different hyper parameter and the final model has this combination
+# model_400_lr_01_momentum_99_nesterov_false_batch_size_10_accuracy_graph  accuracy: 0.9658 - loss: 0.0974
+# model_400_lr_01_momentum_99_nesterov_True_batch_size_10_accuracy_graph : accuracy: 0.9775 - loss: 0.0967
+
+
+if __name__ == "__main__":
+    print("Done")

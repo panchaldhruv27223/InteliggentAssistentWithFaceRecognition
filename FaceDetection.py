@@ -35,7 +35,7 @@ def EncodeFaceData():
 
     ## take pata from the disk
     currentPath = os.getcwd()
-    listpath = currentPath + "\FaceData"
+    listpath = currentPath + "/FaceData"
 
     ## get the list of picture. it use as train data
     listOfPicture = os.listdir(listpath)

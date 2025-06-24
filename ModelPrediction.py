@@ -15,8 +15,8 @@ print("Loading model...")
 # print("Current directory:", os.path.dirname(os.path.abspath(__file__)))
 # print(os.listdir(os.getcwd()))
 
-import zipfile
-print(zipfile.is_zipfile("model.keras"))
+# import zipfile
+# print(zipfile.is_zipfile("model.keras"))
 
 
 model = load_model('model_data/model.keras')

@@ -148,8 +148,9 @@ plt.savefig('model_accuracy_graph.png')  # Save the accuracy graph as a PNG file
 
 
 ## trained a model with different different hyper parameter and the final model has this combination
-# model_400_lr_01_momentum_99_nesterov_false_batch_size_10_accuracy_graph  accuracy: 0.9658 - loss: 0.0974
-# model_400_lr_01_momentum_99_nesterov_True_batch_size_10_accuracy_graph : accuracy: 0.9775 - loss: 0.0967
+
+# model epoch : 400, lr :0.01, momentum : 0.99, nesterov=false, batch_size=10, accuracy: 0.9658, loss: 0.0974
+# model epoch = 400, lr=01, momentum=99, nesterov=True, batch_size=10, accuracy: 0.9775, loss: 0.0967   (this i sthe model we are using)
 
 
 if __name__ == "__main__":

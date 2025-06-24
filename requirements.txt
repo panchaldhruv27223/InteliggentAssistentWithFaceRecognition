@@ -1,0 +1,25 @@
+opencv-python
+pandas
+scikit-learn
+numpy
+matplotlib
+scipy
+nltk
+tensorflow==2.17.0
+keras
+numpy
+openai-whisper
+whisper
+SpeechRecognition==3.10.1
+PyAudio==0.2.14
+soundfile==0.12.1
+pyttsx3==2.90
+requests==2.31.0
+face-recognition
+dlib
+
+## to run:
+## Used Python version 3.12.3 
+## pip install -r requirements.txt
+
+# Note: Use any python version higher than 3.9

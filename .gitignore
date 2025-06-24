@@ -1,0 +1,10 @@
+# ignore my virtual environment
+/kody_project/
+# Ignore the Haar Cascade file if it's not needed for the project
+/haarcascade_frontalface_alt.xml
+
+#extra data files
+/extraData.json
+
+# Ignore Python cache files
+__pycache__/

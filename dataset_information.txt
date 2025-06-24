@@ -1,0 +1,162 @@
+Total Tags (Intents): 52
+All Tags: ['greeting', 'greetingMore', 'goodbye', 'creator', 'identity', 'hours', 'contact', 'courses', 'fees', 'location', 'hostel', 'events', 'admission', 'library', 'facilities', 'sports', 'placement', 'choice', 'happiness', 'strengths', 'complaints', 'improvements', 'accessibility', 'academics_majors', 'academics_reputation', 'favorite_class', 'faculty', 'professors_office_hours', 'classFormat', 'readingWriting', 'classSize', 'independent_study', 'professorResearch', 'first_year_experience', 'typical_day', 'study_time', 'non_class_activities', 'weekend_activities', 'social_scene', 'hometown_activities', 'popular_clubs', 'favorite_place_on_campus', 'friendly_students', 'student_body_unique', 'campus_diversity', 'internship_opportunities', 'career_services', 'mentorship_program', 'leadership_opportunities', 'employer_recruitment', 'summer_jobs', 'hands-on_experiences']
+Total Patterns: 163
+Total Responses: 63
+
+Patterns and Responses per Tag:
+ - Tag: greeting
+    Patterns: 4
+    Responses: 5
+ - Tag: greetingMore
+    Patterns: 2
+    Responses: 2
+ - Tag: goodbye
+    Patterns: 6
+    Responses: 4
+ - Tag: creator
+    Patterns: 3
+    Responses: 1
+ - Tag: identity
+    Patterns: 3
+    Responses: 1
+ - Tag: hours
+    Patterns: 3
+    Responses: 1
+ - Tag: contact
+    Patterns: 3
+    Responses: 1
+ - Tag: courses
+    Patterns: 3
+    Responses: 1
+ - Tag: fees
+    Patterns: 3
+    Responses: 1
+ - Tag: location
+    Patterns: 3
+    Responses: 1
+ - Tag: hostel
+    Patterns: 3
+    Responses: 1
+ - Tag: events
+    Patterns: 3
+    Responses: 1
+ - Tag: admission
+    Patterns: 3
+    Responses: 1
+ - Tag: library
+    Patterns: 3
+    Responses: 1
+ - Tag: facilities
+    Patterns: 6
+    Responses: 2
+ - Tag: sports
+    Patterns: 9
+    Responses: 2
+ - Tag: placement
+    Patterns: 3
+    Responses: 1
+ - Tag: choice
+    Patterns: 2
+    Responses: 1
+ - Tag: happiness
+    Patterns: 2
+    Responses: 1
+ - Tag: strengths
+    Patterns: 2
+    Responses: 1
+ - Tag: complaints
+    Patterns: 2
+    Responses: 1
+ - Tag: improvements
+    Patterns: 2
+    Responses: 1
+ - Tag: accessibility
+    Patterns: 2
+    Responses: 1
+ - Tag: academics_majors
+    Patterns: 3
+    Responses: 1
+ - Tag: academics_reputation
+    Patterns: 3
+    Responses: 1
+ - Tag: favorite_class
+    Patterns: 3
+    Responses: 1
+ - Tag: faculty
+    Patterns: 4
+    Responses: 2
+ - Tag: professors_office_hours
+    Patterns: 3
+    Responses: 1
+ - Tag: classFormat
+    Patterns: 3
+    Responses: 1
+ - Tag: readingWriting
+    Patterns: 3
+    Responses: 1
+ - Tag: classSize
+    Patterns: 3
+    Responses: 1
+ - Tag: independent_study
+    Patterns: 3
+    Responses: 1
+ - Tag: professorResearch
+    Patterns: 3
+    Responses: 1
+ - Tag: first_year_experience
+    Patterns: 3
+    Responses: 1
+ - Tag: typical_day
+    Patterns: 3
+    Responses: 1
+ - Tag: study_time
+    Patterns: 3
+    Responses: 1
+ - Tag: non_class_activities
+    Patterns: 3
+    Responses: 1
+ - Tag: weekend_activities
+    Patterns: 3
+    Responses: 1
+ - Tag: social_scene
+    Patterns: 3
+    Responses: 1
+ - Tag: hometown_activities
+    Patterns: 3
+    Responses: 1
+ - Tag: popular_clubs
+    Patterns: 3
+    Responses: 1
+ - Tag: favorite_place_on_campus
+    Patterns: 3
+    Responses: 1
+ - Tag: friendly_students
+    Patterns: 3
+    Responses: 1
+ - Tag: student_body_unique
+    Patterns: 3
+    Responses: 1
+ - Tag: campus_diversity
+    Patterns: 3
+    Responses: 1
+ - Tag: internship_opportunities
+    Patterns: 3
+    Responses: 1
+ - Tag: career_services
+    Patterns: 3
+    Responses: 1
+ - Tag: mentorship_program
+    Patterns: 3
+    Responses: 1
+ - Tag: leadership_opportunities
+    Patterns: 3
+    Responses: 1
+ - Tag: employer_recruitment
+    Patterns: 3
+    Responses: 1
+ - Tag: summer_jobs
+    Patterns: 3
+    Responses: 1
+ - Tag: hands-on_experiences
+    Patterns: 3
+    Responses: 1

@@ -111,7 +111,7 @@ Use `chatbot_response("your message")` to test.
 
 ---
 
-### 3️⃣ (Optional) Create Main Application
+### 3️⃣ (Optional) Main Application
 
 Integrate:
 
